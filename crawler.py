@@ -40,7 +40,5 @@ for i in range(10000):
 					temp1 = chomp(temp1)
 
 					for tmp in temp1.split('\n'):
-						the_file.write('<text>')
 						the_file.write(tmp)
-						the_file.write('</text>')
-						the_file.write('\n\n')
+						the_file.write('\n')
