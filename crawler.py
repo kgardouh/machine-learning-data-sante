@@ -41,4 +41,4 @@ for i in range(10000):
 
 					for tmp in temp1.split('\n'):
 						the_file.write(tmp)
-						the_file.write('\n')
+						the_file.write('.  	1\n')
