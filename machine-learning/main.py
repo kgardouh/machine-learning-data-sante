@@ -7,6 +7,7 @@ import os
 from keras.models import Sequential
 from keras import layers
 from keras.utils import to_categorical
+from tkinter import * 
 import matplotlib.pyplot as plt
 
 def plot_history(history):

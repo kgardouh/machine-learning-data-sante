@@ -20,7 +20,7 @@ def scrap(root):
 	s = BeautifulSoup(plain, "html.parser")
 	data = s.find('div', {'id':'qdispctn'})
 	print(data.text)
-	return data.text
+	return data.text.strip('\n')
 
 for i in range(10000):
 	url = "https://sante-medecine.journaldesfemmes.fr/forum/sante-14?page="+str(i)
@@ -30,15 +30,15 @@ for i in range(10000):
 	for link in soup.findAll('li', {'class':'ccm_forum_ctn--deco__item'}):
 		if link.find('a', {'class':''}):
 			root = link.find('a', {'class':''}).get('href')
-			scrap(root)
-			with open('somefile.txt', 'a') as the_file:
+			with open('./corpus/data-sante'+str(i)+'.txt', 'a') as the_file:
 				if str(scrap(root)):
 					st = str(scrap(root))
-					#st = st.find('div', {'class':''}).text
-					temp1 = st.replace(".","\n").replace("                ","").replace("Bonjour,","").replace("\n,"," ")
+					temp1 = st.replace(".","\n").replace("                ","").replace("Bonjour,","").strip('\n')
 					temp1 = re.sub(r'[^\w\s_]+', '', st).strip()
 					temp1 = chomp(temp1)
-
-					for tmp in temp1.split('\n'):
-						the_file.write(tmp)
-						the_file.write('.  	1\n')
+					if temp1!='':
+						#st = st.find('div', {'class':''}).text
+						for tmp in temp1.split('\n'):
+							if tmp!='':
+								the_file.write(tmp.replace("\n","").replace("\r",""))
+								the_file.write('.  	1\n')
