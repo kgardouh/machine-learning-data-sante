@@ -30,7 +30,7 @@ for i in range(10000):
 	for link in soup.findAll('li', {'class':'ccm_forum_ctn--deco__item'}):
 		if link.find('a', {'class':''}):
 			root = link.find('a', {'class':''}).get('href')
-			with open('./corpus/data-sante'+str(i)+'.txt', 'a') as the_file:
+			with open('./corpus/data-sante.txt', 'a') as the_file:
 				if str(scrap(root)):
 					st = str(scrap(root))
 					temp1 = st.replace(".","\n").replace("                ","").replace("Bonjour,","").strip('\n')

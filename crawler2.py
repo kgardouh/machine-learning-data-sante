@@ -21,6 +21,8 @@ def scrap(root):
 	#print(s)
 	for link in s.findAll('div', {'class':'ipsType_normal ipsType_richText ipsContained'}):
 		data = link.find('p')
+		#print("--------------------DATA--------------------------")
+		#print(data)
 		if data is not None:
 			d = data.get_text()
 			#print(d)
@@ -43,15 +45,19 @@ for item in listroots:
 
 			print("//++++++++++++++"+l)
 			#if not t is None:
-			with open('./corpus/data-sante'+str(item)+"-"+str(x)+'.txt', 'a') as the_file:
+			with open('./corpus/data-sante.txt', 'a') as the_file:
 				if str(scrap(l)):
 					st = str(scrap(l))
-					temp1 = re.sub(r'[^\w\s_]+', '', st).strip()
-					temp1 = chomp(temp1)
-					if temp1!='':
-						#st = st.find('div', {'class':''}).text
-						the_file.write(temp1)
-						the_file.write('.  	0\n')
+					st = re.sub(r'[^\w\s_]+', '', st).strip()
+
+					if st != "None":
+						#print("********************ST********************")
+						#print(st)
+						st = chomp(st).replace("\n","").replace("\r","")
+						if st!= '':
+							the_file.write(st)
+							the_file.write('.  	0\n')
+					
 
 
 

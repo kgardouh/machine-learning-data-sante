@@ -87,6 +87,11 @@ for source in df['source'].unique():
 input_dim = X_train.shape[1]  # Number of features
 model = Sequential()
 model.add(layers.Dense(10, input_dim=input_dim, activation='relu'))
+model.add(layers.Dense(10, input_dim=input_dim, activation='relu'))
+model.add(layers.Dense(10, input_dim=input_dim, activation='relu'))
+model.add(layers.Dense(10, input_dim=input_dim, activation='relu'))
+model.add(layers.Dense(10, input_dim=input_dim, activation='relu'))
+
 model.add(layers.Dense(1, activation='sigmoid'))
 
 one_hot_labels = to_categorical(y_train, num_classes=3)
@@ -101,7 +106,13 @@ print("Training Accuracy: {:.4f}".format(accuracy))
 loss, accuracy = model.evaluate(X_test, y_test, verbose=False)
 print("Testing Accuracy:  {:.4f}".format(accuracy))
 
-classes = model.predict(X_test, batch_size=128)
+
+t  = vectorizer.transform(["je me sens malade"])
+classes = model.predict(t, batch_size=128)
+print(classes)
+print("je me sens malade")
+
+
 plt.style.use('ggplot')
 
 plot_history(history)
