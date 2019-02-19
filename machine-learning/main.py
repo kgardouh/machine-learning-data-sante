@@ -66,14 +66,14 @@ print("Accuracy:", score)
 
 for source in df['source'].unique():
     df_source = df[df['source'] == source]
-    sentences = df_source['sentence'].values
-    y = df_source['label'].values
+    sentences = df_source['sentence'].values.astype('U')
+    y = df_source['label'].values.astype('U')
 
     sentences_train, sentences_test, y_train, y_test = train_test_split(
         sentences, y, test_size=0.25, random_state=1000)
 
     vectorizer = CountVectorizer()
-    vectorizer.fit(sentences_train.values.astype('U'))
+    vectorizer.fit(sentences_train)
     X_train = vectorizer.transform(sentences_train)
     X_test  = vectorizer.transform(sentences_test)
 
