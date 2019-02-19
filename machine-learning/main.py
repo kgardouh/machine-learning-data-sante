@@ -45,8 +45,8 @@ df = pd.concat(df_list)
 print(df.iloc[0])
 
 df_yelp = df[df['source'] == 'yelp']
-sentences = df_yelp['sentence'].values
-y = df_yelp['label'].values
+sentences = df_yelp['sentence'].values.astype('U')
+y = df_yelp['label'].values.astype('U')
 sentences_train, sentences_test, y_train, y_test = train_test_split(sentences, y, test_size=0.25, random_state=1000)
 
 
@@ -73,7 +73,7 @@ for source in df['source'].unique():
         sentences, y, test_size=0.25, random_state=1000)
 
     vectorizer = CountVectorizer()
-    vectorizer.fit(sentences_train)
+    vectorizer.fit(sentences_train.values.astype('U'))
     X_train = vectorizer.transform(sentences_train)
     X_test  = vectorizer.transform(sentences_test)
 
