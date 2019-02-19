@@ -33,7 +33,7 @@ def plot_history(history):
     
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
-filepath_dict = {'yelp':  'yelp_labelled.txt'}
+filepath_dict = {'data':  'data-sante.txt'}
 
 df_list = []
 for source, filepath in filepath_dict.items():
@@ -44,7 +44,7 @@ for source, filepath in filepath_dict.items():
 df = pd.concat(df_list)
 print(df.iloc[0])
 
-df_yelp = df[df['source'] == 'yelp']
+df_yelp = df[df['source'] == 'data']
 sentences = df_yelp['sentence'].values.astype('U')
 y = df_yelp['label'].values.astype('U')
 sentences_train, sentences_test, y_train, y_test = train_test_split(sentences, y, test_size=0.25, random_state=1000)
@@ -87,17 +87,12 @@ for source in df['source'].unique():
 input_dim = X_train.shape[1]  # Number of features
 model = Sequential()
 model.add(layers.Dense(10, input_dim=input_dim, activation='relu'))
-model.add(layers.Dense(10, input_dim=input_dim, activation='relu'))
-model.add(layers.Dense(10, input_dim=input_dim, activation='relu'))
-model.add(layers.Dense(10, input_dim=input_dim, activation='relu'))
-model.add(layers.Dense(10, input_dim=input_dim, activation='relu'))
-
 model.add(layers.Dense(1, activation='sigmoid'))
 
 one_hot_labels = to_categorical(y_train, num_classes=3)
 model.compile(loss='binary_crossentropy',optimizer='adam',metrics=['accuracy'])
 model.summary()
-
+model.save('my_model.h5')
 history = model.fit(X_train, y_train,epochs=100,verbose=False,validation_data=(X_test, y_test),batch_size=10)
 #history = model.fit(X_train, one_hot_labels,epochs=100,verbose=False,validation_data=(X_test, one_hot_labels),batch_size=10)
 
