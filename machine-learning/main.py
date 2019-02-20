@@ -87,13 +87,15 @@ for source in df['source'].unique():
 input_dim = X_train.shape[1]  # Number of features
 model = Sequential()
 model.add(layers.Dense(10, input_dim=input_dim, activation='relu'))
+model.add(layers.Dense(10, input_dim=input_dim, activation='relu'))
+model.add(layers.Dense(10, input_dim=input_dim, activation='relu'))
 model.add(layers.Dense(1, activation='sigmoid'))
 
 one_hot_labels = to_categorical(y_train, num_classes=3)
 model.compile(loss='binary_crossentropy',optimizer='adam',metrics=['accuracy'])
 model.summary()
 model.save('my_model.h5')
-history = model.fit(X_train, y_train,epochs=100,verbose=False,validation_data=(X_test, y_test),batch_size=10)
+history = model.fit(X_train, y_train,epochs=200,verbose=False,validation_data=(X_test, y_test),batch_size=10)
 #history = model.fit(X_train, one_hot_labels,epochs=100,verbose=False,validation_data=(X_test, one_hot_labels),batch_size=10)
 
 loss, accuracy = model.evaluate(X_train, y_train, verbose=False)
@@ -101,11 +103,12 @@ print("Training Accuracy: {:.4f}".format(accuracy))
 loss, accuracy = model.evaluate(X_test, y_test, verbose=False)
 print("Testing Accuracy:  {:.4f}".format(accuracy))
 
-
-t  = vectorizer.transform(["je me sens malade"])
-classes = model.predict(t, batch_size=128)
-print(classes)
-print("je me sens malade")
+arr = [['Bonjour'],['je me sens malade'],['j ai de la température'],['Aujourd hui il faisait 30 degrés'],['Tu vas aller au docteur?'],['il fait chaud en Tunisie'],['J ai mal au ventre'],['Il fait chaud'],['jai 15 ans'],['je n arrive pas a me tenir a un regime']]
+for x in arr:
+    print(x)
+    t  = vectorizer.transform(x)
+    classes = model.predict(t, batch_size=128)
+    print(classes)
 
 
 plt.style.use('ggplot')
