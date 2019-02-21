@@ -83,12 +83,6 @@ def training():
     model = Sequential()
     model.add(Dense(num_classes * 8, input_shape=(number_words_dataset,), activation = 'relu'))
     model.add(Dropout(0.5))
-
-    model.add(Dense(num_classes * 4, activation = 'relu'))
-    model.add(Dropout(0.2))
-
-    model.add(Dense(num_classes * 4, activation = 'relu'))
-    model.add(Dropout(0.2))
     
     model.add(Dense(num_classes * 4, activation = 'relu'))
     model.add(Dropout(0.2))

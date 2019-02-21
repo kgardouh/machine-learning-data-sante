@@ -22,8 +22,9 @@ with open('data-sante2.txt', 'r') as f: #open the file
 
     #contents = map(lambda s: s.strip(), contents)
     for x in contents:
-        file.write((x.split('.'))[0]+','+(x.split('.'))[1].strip())
-        file.write('\n')
+        if not (x.split('.'))[0]=='':
+            file.write((x.split('.'))[0]+','+(x.split('.'))[1].strip())
+            file.write('\n')
    
     	
   
